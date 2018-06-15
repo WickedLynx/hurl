@@ -1,0 +1,82 @@
+/* Pallete
+ * ultra dark: #00204a
+ * dark: #005792
+ * medium: #00bbf0
+ * light: #d9faff
+ */
+.color-light {
+	color: #d9faff;
+}
+
+.color-dark {
+	color: #005792;
+}
+
+.background-light {
+	background-color: #d9faff;
+}
+
+.rounded-corners {
+	border-radius: 5pt;
+}
+
+.font-special {
+	font-family: 'Bungee';
+}
+
+.font-primary {
+	font-family: 'Raleway', sans-serif;
+}
+
+.dark-border {
+	border-color: #005792;
+	border-width: 1pt;
+	border-style: solid;
+}
+
+.medium-border {
+	border-color: #00bbf0;
+	border-width: 1pt;
+	border-style: solid;
+}
+
+.button-primary {
+	background-color: #005792;
+	border-radius: 5pt;
+	color: white;
+	font-family: 'Raleway', 'sans-serif';
+	font-size: 1.6em;
+	border-color: none;
+	border-style: none;
+	font-weight: 500;
+	padding: 8px 16px;
+	cursor: pointer;
+}
+
+.button-primary:hover {
+	background-color: #00bbf0;
+}
+
+#brand {
+	padding: 0;
+	margin: 0 auto;
+	text-align: center;
+}
+
+#brand h1 {
+	font-size: 7.5em;
+	margin: 0;
+	padding: 0;
+	opacity: 1.0;
+}
+
+#brand h1:hover {
+	cursor: pointer;
+	opacity: 0.8;
+}
+
+
+#brand a {
+	text-decoration: none;
+}
+

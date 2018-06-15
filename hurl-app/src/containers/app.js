@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import Login from './login';
 import Home from './home';
 import { connect } from 'react-redux';
+import '../css/app.css';
 
 class App extends Component {
 	render() {
@@ -10,8 +11,8 @@ class App extends Component {
 			<div id='root-container'>
 				<Router baseName={'/'}>
 					<div>
-						<div id='brand'>
-							<Link to='/'><h1>Hurl</h1></Link>
+						<div id='brand' >
+							<Link to='/'><h1 className='font-special color-light'>Hurl</h1></Link>
 						</div>
 						<Switch>
 							<Route exact path='/' component={Home} />

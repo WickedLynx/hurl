@@ -1,0 +1,23 @@
+#login-container {
+	width: 80%;
+	max-width: 500pt;
+	margin: 50px auto;
+	text-align: center;
+	padding: 32pt;
+	opacity: 0.8;
+}
+
+#login-container input {
+	display: block;
+	width: 100%;
+	margin: 10pt auto;
+	height: 44px;
+	text-align: center;
+	font-size: 1.5em;
+	font-weight: 500;
+}
+
+#login-container button {
+	width: 60%;
+	max-width: 300pt;
+}

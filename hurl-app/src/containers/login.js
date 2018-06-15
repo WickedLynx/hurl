@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { login } from '../actions/index';
+import '../css/login.css';
 
 class Login extends Component {
 	constructor(props) {
@@ -22,14 +23,14 @@ class Login extends Component {
 
 	render() {
 		return (
-			<div id='login-container'>
+			<div id='login-container' className='background-light rounded-corners'>
 				<input type='email' placeholder='Email address' onChange={(event) => {
 					this.setState({...this.state, ...{ email: event.target.value }})
-				}} value={ this.state.email }></input>
+				}} value={ this.state.email } className='medium-border rounded-corners font-primary color-dark'></input>
 				<input type='password' placeholder='Password' onChange={(event) => {
 					this.setState({...this.state, ...{ password: event.target.value }})
-				}} value={ this.state.password }></input>
-				<button onClick={ this.login.bind(this) }>Login</button>
+				}} value={ this.state.password } className='medium-border rounded-corners font-primary color-dark'></input>
+				<button onClick={ this.login.bind(this) } className='button-primary'>LOGIN</button>
 			</div>
 		);
 	}
@@ -38,7 +39,7 @@ class Login extends Component {
 		var isLoggedIn = this.props.isLoggedIn;
 		var prevIsLoggedIn = prevProps.isLoggedIn;
 
-		if (isLoggedIn && prevIsLoggedIn !== isLoggedIn) {
+		if (isLoggedIn) {
 			this.props.history.push('/');
 		}
 	}

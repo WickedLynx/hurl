@@ -18,7 +18,7 @@ export default function authReducer(state=INITIAL_STATE, action) {
 		case AUTH_LOADING:
 			return { isLoggedIn: isLoggedIn, isLoading: true, error: null };
 		case AUTH_ERROR:
-			return { isLoggedIn: isLoggedIn, isLoading: false, error: action.data.error };
+			return { isLoggedIn: isLoggedIn, isLoading: false, error: action.error };
 		default:
 			return { ...state, ...{ isLoggedIn: isLoggedIn } };
 	}
