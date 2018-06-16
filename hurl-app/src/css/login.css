@@ -19,5 +19,7 @@
 
 #login-container button {
 	width: 60%;
-	max-width: 300pt;
+	max-width: 200pt;
+	height: 44px;
+	margin-top: 16px;
 }

@@ -43,18 +43,18 @@
 .button-primary {
 	background-color: #005792;
 	border-radius: 5pt;
-	color: white;
-	font-family: 'Raleway', 'sans-serif';
+	color: #d9faff;
+	font-family: 'Prompt', 'sans-serif';
 	font-size: 1.6em;
 	border-color: none;
 	border-style: none;
 	font-weight: 500;
-	padding: 8px 16px;
+	padding: 4px 16px;
 	cursor: pointer;
 }
 
 .button-primary:hover {
-	background-color: #00bbf0;
+	opacity: 0.9;
 }
 
 #brand {

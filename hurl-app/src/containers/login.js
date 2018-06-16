@@ -37,7 +37,6 @@ class Login extends Component {
 
 	componentDidUpdate(prevProps) {
 		var isLoggedIn = this.props.isLoggedIn;
-		var prevIsLoggedIn = prevProps.isLoggedIn;
 
 		if (isLoggedIn) {
 			this.props.history.push('/');
