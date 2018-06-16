@@ -35,4 +35,7 @@ export const login = (email, password) => dispatch => {
 		});
 	});
 }
+
+export const upload = (file) => dispatch => {
+}
 		

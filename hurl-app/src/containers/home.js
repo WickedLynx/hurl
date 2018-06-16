@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { upload } from '../actions/index';
 
 class Home extends Component {
 	constructor(props) {
@@ -9,10 +10,20 @@ class Home extends Component {
 		}
 	}
 
+	uploadFile(files) {
+		if (!files || files.length === 0) {
+			// TODO: Show error
+			return;
+		}
+		this.props.upload(files[0]);
+	}
+
+
 	render() {
 		return (
-			<div>
-				<p>Welcome Home!</p>
+			<div id='home-container'>
+				<input type='file' onChange={(event) => {
+				this.upload(event.target.files) }}></input>
 			</div>
 		);
 	}
@@ -28,4 +39,4 @@ function mapStateToProps(state) {
 	return { isLoggedIn: state.auth.isLoggedIn };
 }
 
-export default connect(mapStateToProps)(Home);
+export default connect(mapStateToProps, { upload })(Home);
