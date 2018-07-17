@@ -91,7 +91,7 @@ var dbHelper = {
 				reject(Error('Invalid username/password'));
 				return;
 			}
-			conn.query('SELECT id, email, date_created FROM `users` WHERE `email` = ?', [email],
+			conn.query('SELECT id, email, date_created, password FROM `users` WHERE `email` = ?', [email],
 				function(err, results) {
 				if (err) {
 					reject(err);
@@ -111,6 +111,7 @@ var dbHelper = {
 						reject(Error('Passwords do not match'));
 						return;
 					}
+					delete user.password;
 					resolve(user);
 				});
 			});
