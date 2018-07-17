@@ -3,6 +3,7 @@
 
 *.DS_Store
 *.swp
+hurl-api/uploads
 
 ### Node ###
 # Logs

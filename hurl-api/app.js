@@ -8,6 +8,8 @@ var extractJwt = passportJwt.ExtractJwt;
 var jwtStrategy = passportJwt.Strategy;
 var config = require('./config.js');
 var dbHelper = require('./db/db_helper.js');
+var formidable = require('formidable');
+var shortid = require('shortid');
 
 dbHelper.setup();
 var app = express();
@@ -34,14 +36,38 @@ var strategy = new jwtStrategy(jwtOptions, function(jwtPayload, next) {
 	});
 });
 
+passport.use(strategy);
+
 //-----------------------------------------------------------------------------------------------------------------
 // Routes
 //-----------------------------------------------------------------------------------------------------------------
 
+app.get('/files', passport.authenticate('jwt', { session: false }), function(req, res) {
+	var user = req.user;
+	if (!user) {
+		postError(res, 401, 'User not found');
+		return;
+	}
+	dbHelper.selectAllFiles(user).then(function(files) {
+		postSuccess(res, files);
+	}).catch(function(err) {
+		console.log(err);
+		postError(res, 500, 'Internal error');
+	});
+});
+
+app.get('/files/:token', function(req, res) {
+	dbHelper.fileForToken(req.params.token).then(function(fileInfo) {
+		res.download(fileInfo.path);
+	}).catch(function(error) {
+		console.log(error);
+		postError(res, 500, error);
+	});
+});
+
 app.post('/login', function(req, res) {
 	var email = req.body.email;
 	var password = req.body.password;
-
 	dbHelper.authenticateUser(email, password).then(function(user) {
 		if (!user) {
 			postError(res, 404, 'User not found');
@@ -52,6 +78,34 @@ app.post('/login', function(req, res) {
 		postSuccess(res, { user: user, token: token });
 	}).catch(function(err) {
 		postError(res, 404, 'User not found');
+	});
+});
+
+app.post('/upload', passport.authenticate('jwt', { session: false }), function(req, res) {
+	var user = req.user;
+	if (!user) {
+		postError(res, 401, 'You need to login first');
+		return;
+	}
+	var form = new formidable.IncomingForm();
+	form.parse(req);
+	form.on('fileBegin', function(name, file) {
+		file.path = __dirname + '/uploads/' + shortid.generate() + '_' + (file.name || 'unknown');
+	});
+
+	form.on('file', function(name, file) {
+		dbHelper.addFile(user, file.path, (file.name || 'unknown')).then(function(token) {
+			postSuccess(res, {});
+		}).catch(function(err) {
+			console.log(err);
+			postError(res, 500, err);
+		});
+	});
+
+	form.on('error', function(err) {
+		console.log('upload error');
+		console.log(err);
+		postError(res, 500, err);
 	});
 });
 
