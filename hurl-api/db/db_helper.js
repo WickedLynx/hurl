@@ -190,7 +190,7 @@ var dbHelper = {
 				reject(Error('User does not exist'));
 				return;
 			}
-			conn.query('SELECT id, name, date_created FROM `files` WHERE `user_id` = ? ORDER BY `date_created` DESC', [user.id], function(err, results) {
+			conn.query('SELECT id, name, size, date_created FROM `files` WHERE `user_id` = ? ORDER BY `date_created` DESC', [user.id], function(err, results) {
 				if (err) {
 					reject(err);
 					return;
@@ -217,10 +217,10 @@ var dbHelper = {
 		});
 	},
 
-	addFile: function(user, path, name) {
+	addFile: function(user, path, size, name) {
 		var me = this;
 		return new Promise(function(resolve, reject) {
-			me.createFile(user.id, path, name).then(function(file) {
+			me.createFile(user.id, path, size,  name).then(function(file) {
 				me.createToken(TOKEN_TYPE_PERMANENT, shortid.generate(), file.id).then(resolve).catch(reject);
 			}).catch(reject);
 		});
@@ -273,19 +273,19 @@ var dbHelper = {
 	},
 
 
-	createFile: function(userID, filePath, fileName) {
+	createFile: function(userID, filePath, size, fileName) {
 		var cb = this.fileWithID.bind(this);
-		return this.insertFile(userID, filePath, fileName).then(cb);
+		return this.insertFile(userID, filePath, size, fileName).then(cb);
 	},
 
-	insertFile: function(userID, filePath, fileName) {
+	insertFile: function(userID, filePath, size,  fileName) {
 		const conn = this.connection;
 		return new Promise(function(resolve, reject) {
 			if (!userID || !filePath || !fileName) {
 				reject(Error('Missing either userID or filePath or fileName'));
 				return;
 			}
-			conn.query('INSERT INTO `files` (name, path, user_id) VALUES (?, ?, ?)', [fileName, filePath, userID],
+			conn.query('INSERT INTO `files` (name, path, size, user_id) VALUES (?, ?, ?, ?)', [fileName, filePath, size,  userID],
 				function(err, results, fields) {
 					if (err) {
 						reject(err);
@@ -307,7 +307,7 @@ var dbHelper = {
 				reject(Error('Invalid file ID'));
 				return;
 			}
-			conn.query('SELECT id, name, date_created from `files` where `id` = ?', [fileID], function(err, results, fields) {
+			conn.query('SELECT id, name, size, date_created from `files` where `id` = ?', [fileID], function(err, results, fields) {
 				if (err) {
 					reject(err);
 					return;

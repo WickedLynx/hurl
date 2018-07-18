@@ -94,7 +94,7 @@ app.post('/upload', passport.authenticate('jwt', { session: false }), function(r
 	});
 
 	form.on('file', function(name, file) {
-		dbHelper.addFile(user, file.path, (file.name || 'unknown')).then(function(token) {
+		dbHelper.addFile(user, file.path, file.size, (file.name || 'unknown')).then(function(token) {
 			postSuccess(res, {});
 		}).catch(function(err) {
 			console.log(err);
