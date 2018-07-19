@@ -1,0 +1,9 @@
+#files-list-container {
+	margin: 0;
+	padding: 0;
+}
+
+#files-list-container ul {
+	list-style-type: none;
+	padding-left: 0;
+}

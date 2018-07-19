@@ -12,6 +12,18 @@
 	color: #005792;
 }
 
+.color-medium {
+	color: #00bbf0;
+}
+
+.color-gray {
+	color: #888888;
+}
+
+.color-ultra-dark {
+	color: #00204a;
+}
+
 .background-light {
 	background-color: #d9faff;
 }
@@ -26,6 +38,10 @@
 
 .font-primary {
 	font-family: 'Raleway', sans-serif;
+}
+
+.font-secondary {
+	font-family: 'Lato', 'sans-serif';
 }
 
 .dark-border {

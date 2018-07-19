@@ -1,0 +1,43 @@
+.file-list-cell-container {
+	width: 100%;
+	height: 60px;
+	margin: 0;
+	padding-left: 8px;
+	cursor: pointer;
+}
+
+
+.file-date {
+	margin-left: 8px;
+}
+
+.file-size {
+	font-weight: bold;
+}
+
+.file-list-cell-container:hover {
+	opacity: 0.8;
+}
+
+.file-list-cell-container p {
+	margin: 0 auto;
+	padding: 0;
+}
+
+.file-list-cell-container .file-meta {
+	margin-bottom: 8px;
+	opacity: 0.8;
+}
+
+
+.file-list-cell-container .file-name {
+	margin-top: 8px;
+	font-size: 1.3em;
+	font-weight: bold;
+}
+
+.file-meta .dot {
+	margin-left: 8px;
+}
+
+
