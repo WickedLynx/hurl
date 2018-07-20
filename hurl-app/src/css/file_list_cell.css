@@ -22,6 +22,9 @@
 .file-list-cell-container p {
 	margin: 0 auto;
 	padding: 0;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
 }
 
 .file-list-cell-container .file-meta {

@@ -1,9 +1,15 @@
 #files-list-container {
 	margin: 0;
 	padding: 0;
+	height: auto;
+	overflow: hidden;
+	overflow-y: scroll;
+	max-height: 800px;
 }
 
 #files-list-container ul {
 	list-style-type: none;
-	padding-left: 0;
+	padding: 0;
+	height: auto;
+	margin: 0;
 }
