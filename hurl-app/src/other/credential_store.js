@@ -1,4 +1,4 @@
-const tokenKey = 'token';
+const tokenKey = 'hurl-token';
 
 export default class CredentialStore {
 	static token() {
