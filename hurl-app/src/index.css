@@ -84,7 +84,7 @@ body {
 
 .font-medium {
 	font-family: 'Quicksand', sans-serif;
-	font-weight: medium;
+	font-weight: 500;
 }
 
 .font-bold {
@@ -113,4 +113,13 @@ body {
 /* Brand */
 .brand-large {
 	font-size: 80px;
+}
+
+.brand-small {
+	font-size: 52px;
+}
+
+/* Other */
+.interactive {
+	cursor: pointer;
 }

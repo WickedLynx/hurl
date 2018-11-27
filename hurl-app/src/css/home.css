@@ -1,3 +1,25 @@
+.navbar {
+	height: 64px;
+	box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.32);
+	line-height: 64px;
+}
+
+.navbar span {
+	display: inline-block;
+	margin-left: 28px;
+}
+
+.navbar .font-brand {
+	margin-top: 5px;
+}
+
+.navbar .button-container {
+	display: inline-block;
+	float: right;
+	padding-right: 32px;
+	font-size: 18px;
+}
+
 #file-list-canvas {
 	width: 30%;
 	height: 80%;

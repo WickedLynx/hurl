@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { upload } from '../actions/index';
 import FilesListView from '../components/files_list_view';
+import NavBar from '../components/navbar';
 import '../css/home.css';
 
 class Home extends Component {
@@ -24,6 +25,7 @@ class Home extends Component {
 	render() {
 		return (
 			<div id='home-container'>
+				<NavBar />
 				<input type='file' onChange={(event) => {
 				this.uploadFile(event.target.files) }}></input>
 				<div id='file-list-canvas'>
