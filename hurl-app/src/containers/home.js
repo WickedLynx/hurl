@@ -25,9 +25,7 @@ class Home extends Component {
 	render() {
 		return (
 			<div id='home-container'>
-				<NavBar />
-				<input type='file' onChange={(event) => {
-				this.uploadFile(event.target.files) }}></input>
+				<NavBar uploadHandler={files => { this.uploadFile(files) }}/>
 				<div id='file-list-canvas'>
 				<FilesListView />
 				</div>

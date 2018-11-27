@@ -9,6 +9,11 @@
 	margin-left: 28px;
 }
 
+.navbar label {
+	display: inline-block;
+	margin-left: 28px;
+}
+
 .navbar .font-brand {
 	margin-top: 5px;
 }
@@ -18,6 +23,10 @@
 	float: right;
 	padding-right: 32px;
 	font-size: 18px;
+}
+
+.navbar .button-container input[type="file"] {
+	display: none;
 }
 
 #file-list-canvas {
