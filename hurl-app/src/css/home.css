@@ -2,6 +2,11 @@
 	height: 64px;
 	box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.32);
 	line-height: 64px;
+	position: absolute;
+	top: 0;
+	left:0;
+	right: 0;
+	z-index: 100;
 }
 
 .navbar span {
@@ -30,10 +35,12 @@
 }
 
 #file-list-canvas {
-	width: 30%;
-	height: 80%;
-	max-height: 800px;
 	margin: 0;
 	padding: 0;
+	overflow: auto;
+	position: absolute;
+	top: 64px;
+	left: 0;
+	bottom: 0;
 }
 

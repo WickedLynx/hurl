@@ -1,18 +1,15 @@
 #files-list-container {
 	margin: 0;
 	padding: 0;
-	height: auto;
-	overflow: hidden;
-	overflow-y: scroll;
-	max-height: 900px;
 }
 
 #files-list-container ul {
 	list-style-type: none;
 	padding: 0;
-	height: auto;
 	width: 352px;
 	margin: 0;
 	margin-left: 16px;
 	margin-top: 64px;
+	margin-bottom: 32px;
+	margin-right: 16px;
 }

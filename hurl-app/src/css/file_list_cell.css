@@ -1,7 +1,6 @@
 .file-list-cell-container {
 	height: 73px;
-	margin-top: 8px;
-	margin-bottom: 8px;
+	margin-top: 16px;
 }
 
 .file-list-cell-container p {
@@ -20,8 +19,23 @@
 	margin-top: 12px;
 }
 
-.file-list-cell-container p:last-child {
+.file-list-cell-container p:nth-of-type(3) {
 	font-size: 14px;
 	text-align: right;
 	margin-right: 32px;
+}
+
+.file-list-cell-container .trash-container {
+	position: relative;
+	display: inline-block;
+	text-align: right;
+	width: 100%;
+}
+
+.file-list-cell-container .trash-container img {
+	width: 16px;
+	height: 16px;
+	position: absolute;
+	bottom: 16px;
+	right: 8px;
 }
