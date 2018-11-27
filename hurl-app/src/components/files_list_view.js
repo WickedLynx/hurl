@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getFiles } from '../actions/index';
+import { getFiles, selectFile } from '../actions/index';
 import FileListCell from '../components/file_list_cell';
-import { API_URL } from '../actions/index';
 import '../css/files_list_view.css';
 
 class FilesListView extends Component {
@@ -13,8 +12,14 @@ class FilesListView extends Component {
 	render() {
 		const cells = this.props.files.map(file => {
 			return (
-				<li key={file.id}>
-					<FileListCell file={file} />
+				<li
+					key={file.id}
+					onClick={() => { this.props.selectFile(file) }}
+				>
+					<FileListCell
+						file={file}
+						isSelected={file.id === this.props.selectedFile}
+					/>
 				</li>
 			);
 		});
@@ -30,7 +35,7 @@ class FilesListView extends Component {
 }
 
 function mapStateToProps(state) {
-	return { files: state.files.files, isLoading: state.files.isLoading, error: state.files.error };
+	return { files: state.files.files, isLoading: state.files.isLoading, error: state.files.error, selectedFile: state.files.selectedFileID};
 }
 
-export default connect( mapStateToProps, { getFiles })(FilesListView);
+export default connect( mapStateToProps, { getFiles, selectFile })(FilesListView);

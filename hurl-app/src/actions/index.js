@@ -13,6 +13,8 @@ export const GET_FILES_LOADING = 'GET_FILES_LOADING';
 export const GET_FILES_SUCCESS = 'GET_FILES_SUCCESS';
 export const GET_FILES_ERROR = 'GET_FILES_ERROR';
 
+export const SELECT_FILE = 'SELECT_FILE';
+
 export const API_URL = 'http://localhost:3064';
 
 function parseError(error) {
@@ -61,6 +63,13 @@ export const getFiles = () => dispatch => {
 			type: GET_FILES_ERROR,
 			error: parseError(error)
 		});
+	});
+}
+
+export const selectFile = (file) => dispatch => {
+	dispatch({
+		type: SELECT_FILE,
+		id: file.id
 	});
 }
 

@@ -1,7 +1,6 @@
 import React from 'react';
 
 export default function NavBar(props) {
-	console.log(props);
 	return (
 		<div className='navbar bg-bg-dark'>
 			<span className='font-brand fg-acc-light brand-small interactive'>Hurl</span>
