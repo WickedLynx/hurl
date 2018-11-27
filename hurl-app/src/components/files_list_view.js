@@ -12,20 +12,8 @@ class FilesListView extends Component {
 
 	render() {
 		const cells = this.props.files.map(file => {
-			var permanentTokens = file.tokens.filter(aToken => {
-				return (aToken.type === 'permanent');
-			});
-			var token = null;
-			if (permanentTokens.length > 0) {
-				token = permanentTokens[0].value;
-			}
 			return (
-				<li key={file.id} onClick={(e) => {
-						if (token) {
-							const url = API_URL + '/files/' + token;
-							window.open(url);
-						}
-					}}>
+				<li key={file.id}>
 					<FileListCell file={file} />
 				</li>
 			);

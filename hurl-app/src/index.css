@@ -110,6 +110,10 @@ body {
 	border: solid 1px #fffefb;
 }
 
+.border-text-light {
+	border: solid 1px #e9e9e9;
+}
+
 /* Brand */
 .brand-large {
 	font-size: 80px;

@@ -5,13 +5,10 @@ import bytes from 'bytes';
 export default function FileListCell(props) {
 	var date = new Date(props.file.date_created);
 	return (
-		<div className='file-list-cell-container background-light font-primary medium-border'>
-			<p className='file-name color-dark'>{props.file.name}</p>
-			<p className='file-meta font-secondary color-ultra-dark'>
-				<span className='file-size'>{ bytes(props.file.size || 0)}</span>
-				<span className='dot'>⁙⁙⁙</span>
-				<span className='file-date'>{date.toDateString()}</span>
-			</p>
+		<div className='file-list-cell-container bg-bg-dark rounded border-text-light interactive'>
+			<p className='font-medium fg-text-dark'>{props.file.name}</p>
+			<p className='font-normal fg-text-dark'>{date.toDateString()}</p>
+			<p className='font-medium fg-text-dark'>{bytes(props.file.size || 0)}</p>
 		</div>
 	);
 
