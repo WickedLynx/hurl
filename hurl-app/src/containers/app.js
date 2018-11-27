@@ -11,9 +11,6 @@ class App extends Component {
 			<div id='root-container'>
 				<Router baseName={'/'}>
 					<div>
-						<div id='brand' >
-							<Link to='/'><h1 className='font-special color-light'>Hurl</h1></Link>
-						</div>
 						<Switch>
 							<Route exact path='/' component={Home} />
 							<Route exact path='/login' component={Login} />

@@ -23,14 +23,15 @@ class Login extends Component {
 
 	render() {
 		return (
-			<div id='login-container' className='background-light rounded-corners'>
-				<input type='email' placeholder='Email address' onChange={(event) => {
+			<div id='login-container'>
+				<p className='font-brand brand-large fg-acc-light' id='brand'>Hurl</p>
+				<input type='email' className='bg-bg-dark fg-acc-light font-normal rounded border-acc-light' placeholder='Email address' onChange={(event) => {
 					this.setState({...this.state, ...{ email: event.target.value }})
-				}} value={ this.state.email } className='medium-border rounded-corners font-primary color-dark'></input>
+				}} value={ this.state.email } ></input>
 				<input type='password' placeholder='Password' onChange={(event) => {
 					this.setState({...this.state, ...{ password: event.target.value }})
-				}} value={ this.state.password } className='medium-border rounded-corners font-primary color-dark'></input>
-				<button onClick={ this.login.bind(this) } className='button-primary'>LOGIN</button>
+				}} value={ this.state.password } className='bg-bg-dark fg-acc-light font-normal rounded border-acc-light'></input>
+				<button onClick={ this.login.bind(this) } className='bg-acc-light font-bold rounded fg-bg-light border-bg-light'>LOGIN</button>
 			</div>
 		);
 	}
