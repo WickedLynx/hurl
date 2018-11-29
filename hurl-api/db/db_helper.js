@@ -272,6 +272,27 @@ var dbHelper = {
 		});
 	},
 
+	tokenWithValue: function(tokenValue) {
+		const conn = this.connection;
+		return new Promise(function(resolve, reject) {
+			if (!tokenValue) {
+				reject(Error('Invalid token id'));
+				return;
+			}
+			conn.query('SELECT * FROM `tokens` WHERE `value` = ?', [tokenValue], function(err, results) {
+				if (err) {
+					reject(err);
+					return;
+				}
+				if (results.length === 0) {
+					reject(Error('No tokens found'));
+					return;
+				}
+				resolve(results[0]);
+			});
+		});
+	},
+
 
 	createFile: function(userID, filePath, size, fileName) {
 		var cb = this.fileWithID.bind(this);

@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import TokenCell from '../components/token_cell';
-import { API_URL } from '../actions/index';
 import '../css/tokens_pane.css';
 
 class TokensPane extends Component {
 	render() {
 		var tokens = this.props.selectedFile.tokens || [];
 		var cells = tokens.map (token => {
-			var link = API_URL + '/files/' + token.value
+			var link = window.location.protocol + '//' + window.location.host + '/download?token=' + token.value;
 			return (
 				<li key={token.id}>
 				<TokenCell link={link} type={token.type} dateCreated={token.date_created} dateExpires='--' />

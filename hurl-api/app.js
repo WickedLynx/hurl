@@ -65,6 +65,17 @@ app.get('/files/:token', function(req, res) {
 	});
 });
 
+app.get('/tokens/:tokenValue', function(req, res) {
+	dbHelper.tokenWithValue(req.params.tokenValue)
+	.then(function(tokenInfo) {
+		postSuccess(res, tokenInfo);
+	})
+	.catch(function(error) {
+		console.log(error);
+		postError(res, 404, error);
+	});
+});
+
 app.post('/login', function(req, res) {
 	var email = req.body.email;
 	var password = req.body.password;

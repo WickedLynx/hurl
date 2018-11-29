@@ -13,6 +13,10 @@ export const GET_FILES_LOADING = 'GET_FILES_LOADING';
 export const GET_FILES_SUCCESS = 'GET_FILES_SUCCESS';
 export const GET_FILES_ERROR = 'GET_FILES_ERROR';
 
+export const GET_TOKEN_DETAIL_LOADING = 'GET_TOKEN_DETAIL_LOADING';
+export const GET_TOKEN_DETAIL_SUCCESS = 'GET_TOKEN_DETAIL_SUCCESS';
+export const GET_TOKEN_DETAIL_ERROR = 'GET_TOKEN_DETAIL_ERROR';
+
 export const SELECT_FILE = 'SELECT_FILE';
 
 export const API_URL = 'http://localhost:3064';
@@ -103,3 +107,28 @@ export const upload = (file) => dispatch => {
 	});
 }
 
+export const getTokenDetails = (token) => dispatch => {
+	dispatch({
+		type: GET_TOKEN_DETAIL_LOADING
+	});
+	if (!token) {
+		dispatch({
+			type: GET_TOKEN_DETAIL_ERROR,
+			error: 'File does not exist'
+		});
+	}
+
+	axios.get(API_URL + /tokens/ + token)
+	.then(response => {
+		dispatch({
+			type: GET_TOKEN_DETAIL_SUCCESS,
+			data: response.data.data
+		});
+	})
+	.catch(error => {
+		dispatch({
+			type: GET_TOKEN_DETAIL_ERROR,
+			error: parseError(error)
+		});
+	});
+}

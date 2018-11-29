@@ -2,7 +2,6 @@ import React from 'react';
 import TrashIcon from '../assets/trash_icon.png';
 
 export default function TokenCell(props) {
-console.log(props);
 	var date = new Date(props.dateCreated);
 	return (
 		<div className='token-cell-container rounded bg-bg-dark border-text-light'>
