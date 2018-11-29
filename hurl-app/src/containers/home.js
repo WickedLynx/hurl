@@ -4,6 +4,7 @@ import { upload } from '../actions/index';
 import FilesListView from '../components/files_list_view';
 import NavBar from '../components/navbar';
 import '../css/home.css';
+import TokensPane from './tokens_pane';
 
 class Home extends Component {
 	constructor(props) {
@@ -29,6 +30,7 @@ class Home extends Component {
 				<div id='file-list-canvas'>
 				<FilesListView />
 				</div>
+				<TokensPane />
 			</div>
 		);
 	}

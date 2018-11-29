@@ -1,0 +1,52 @@
+.token-cell-container {
+	padding: 16px;
+	height: 87px;
+}
+.token-cell-container a {
+	font-size: 14px;
+}
+
+.token-cell-container p:first-child {
+	font-size: 14px;
+}
+
+
+.token-cell-container .trash-container {
+	position: relative;
+	display: inline-block;
+	text-align: right;
+	width: 100%;
+}
+
+.token-cell-container .trash-container img {
+	width: 29px;
+	height: 29px;
+	position: absolute;
+	right: 0px;
+	bottom: 60px;
+}
+
+.token-cell-container p:last-child {
+	font-size: 12px;
+}
+
+#tokens-pane-container {
+	margin: 0;
+	padding: 0;
+	overflow: auto;
+	position: absolute;
+	top: 64px;
+	right: 0;
+	bottom: 0;
+	width: 62.5%;
+}
+
+#tokens-pane ul {
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+	margin-left: 32px;
+	margin-top: 64px;
+	margin-bottom: 32px;
+	margin-right: 16px;
+}
