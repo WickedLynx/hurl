@@ -11,13 +11,13 @@ class CreateTokenPanel extends Component {
 	tokenInfoForType(tokenType) {
 		switch (tokenType) {
 			case TOKEN_TYPE_PERMANENT:
-				return 'Permanent links do not expire automatically and do not require a password';
+				return 'Link does not expire automatically and does not require a password';
 			case TOKEN_TYPE_ONCE:
-				return 'One-time links expire immediately after the file is downloaded once';
+				return 'Link expires immediately after the file is downloaded';
 			case TOKEN_TYPE_TIMED:
-				return 'Timed links expire after a set duration';
+				return 'Link expires automatically after a set duration';
 			case TOKEN_TYPE_PASSWORD:
-				return 'Links do not expire automatically. A password is required to download the file';
+				return 'Link does not expire automatically. A password is required to download the file';
 			default: 
 				return '';
 		}
@@ -49,20 +49,21 @@ class CreateTokenPanel extends Component {
 					</div>
 				</div>
 
-				{/* Token info */}
-				<div id='token-info' className={`fg-text-dark font-normal`}>
-					{this.tokenInfoForType(this.state.selectedType)}
-				</div>
+				<div id='create-token-meta'>
+					{/* Token info */}
+					<div id='token-info' className={`fg-text-dark font-normal`}>
+						{this.tokenInfoForType(this.state.selectedType)}
+					</div>
 
-				{/* Timed token */}
-				<div id='time-selector-container'>
-				</div>
+					{/* Timed token */}
+					<div id='time-selector-container'>
+					</div>
 
-				{/* Description */}
-				<div id='token-description'>
-					<input type='text' placeholder='Link description' className={`bg-bg-light fg-text-dark font-normal rounded border-acc-dark`}></input>
+					{/* Description */}
+					<div id='token-description'>
+						<input type='text' placeholder='Link description' className={`bg-bg-light fg-text-dark font-normal rounded border-acc-dark`}></input>
+					</div>
 				</div>
-
 
 				{/* Create Button */}
 				<div id='create-button'>

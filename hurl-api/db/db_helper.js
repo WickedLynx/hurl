@@ -5,11 +5,12 @@ var shortid = require('shortid');
 
 const TOKEN_TYPE_PERMANENT = 'permanent';
 const TOKEN_TYPE_ONCE = 'once';
-const TOKEN_TYPE_TIMED = 'temporary';
+const TOKEN_TYPE_TIMED = 'timed';
 const TOKEN_TYPE_PASSWORD = 'password';
 
 var dbHelper = {
 	connection: null,
+	
 	
 	hashPassword: function(password) {
 		return new Promise(function (resolve, reject) {
@@ -224,12 +225,12 @@ var dbHelper = {
 		var me = this;
 		return new Promise(function(resolve, reject) {
 			me.createFile(user.id, path, size,  name).then(function(file) {
-				me.createToken(TOKEN_TYPE_PERMANENT, shortid.generate(), file.id).then(resolve).catch(reject);
+				resolve(file);
 			}).catch(reject);
 		});
 	},
 
-	createToken: function(type, value, fileID, dateExpires=null) {
+	createToken: function(type, value=shortid.generate(), fileID, dateExpires=null) {
 		return this.insertToken(type, value, fileID, dateExpires).then(this.tokenWithID.bind(this));
 	},
 

@@ -120,6 +120,32 @@ app.post('/upload', passport.authenticate('jwt', { session: false }), function(r
 	});
 });
 
+app.post('/files/:fileID/links', passport.authenticate('jwt', { session: false }), function(req, res) {
+	const user = req.user;
+	if (!user) {
+		postError(res, 401, 'You need to login first');
+		return;
+	}
+	const fileID = req.params.fileID;
+	const type = req.body.type;
+	switch (type) {
+		case (TOKEN_TYPE_PERMANENT): {
+			dbHelper.createToken(type, null, fileID, null)
+			.then(function(result) {
+				postSuccess(res, { result: 'Token added' });
+			})
+			.catch(function(err) {
+				postError(res, 500, 'Internal server error');
+			});
+			break;
+		}
+
+		default: {
+			postError(res, 401, 'Internal server error');
+		}
+	}
+});
+
 
 //-----------------------------------------------------------------------------------------------------------------
 // Helpers

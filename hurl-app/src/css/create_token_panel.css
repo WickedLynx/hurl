@@ -18,20 +18,31 @@
 }
 
 #token-description {
-	width: 80%;
 	margin: 0 auto;
+	width: 100%;
+}
+
+#create-token-meta {
+	width: 80%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	margin: 0 auto;
+	align-items: center;
+	max-width: 440px;
 }
 
 #token-info {
 	text-align: center;
-	width: 80%;
-	margin: 0 auto;
+	margin: 16px auto;
 }
 
 #token-description input {
-	width: 100%;
 	height: 32px;
-	padding: 0px 8px;
+	outline: none;
+	padding-left: 8px;
+	width: 100%;
+	box-sizing: border-box;
 }
 
 #create-button button {

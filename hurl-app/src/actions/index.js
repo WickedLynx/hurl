@@ -17,6 +17,10 @@ export const GET_TOKEN_DETAIL_LOADING = 'GET_TOKEN_DETAIL_LOADING';
 export const GET_TOKEN_DETAIL_SUCCESS = 'GET_TOKEN_DETAIL_SUCCESS';
 export const GET_TOKEN_DETAIL_ERROR = 'GET_TOKEN_DETAIL_ERROR';
 
+export const CREATE_TOKEN_LOADING = 'CREATE_TOKEN_LOADING';
+export const CREATE_TOKEN_SUCCESS = 'CREATE_TOKEN_SUCCESS';
+export const CREATE_TOKEN_ERROR = 'CREATE_TOKEN_ERROR';
+
 export const SELECT_FILE = 'SELECT_FILE';
 
 export const API_URL = 'http://localhost:3064';
@@ -107,6 +111,31 @@ export const upload = (file) => dispatch => {
 	}).catch(error => {
 		dispatch({
 			type: UPLOAD_ERROR,
+			error: parseError(error)
+		});
+	});
+}
+
+export const createToken = (fileID, type, notes, password, duration) => dispatch => {
+	dispatch({
+		type: CREATE_TOKEN_LOADING
+	});
+
+	axios.post(`${API_URL}/files/${fileID}/links`, {
+		type: type,
+		notes: notes,
+		password: password,
+		duration: duration
+	}, { headers: CredentialStore.authHeader() })
+	.then(response => {
+		dispatch({
+			type: CREATE_TOKEN_SUCCESS,
+			data: response.data.data
+		});
+	})
+	.catch(error => {
+		dispatch({
+			type: CREATE_TOKEN_ERROR,
 			error: parseError(error)
 		});
 	});
