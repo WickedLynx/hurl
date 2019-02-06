@@ -27,10 +27,14 @@ class Home extends Component {
 		return (
 			<div id='home-container'>
 				<NavBar uploadHandler={files => { this.uploadFile(files) }}/>
-				<div id='file-list-canvas'>
-				<FilesListView />
+				<div id='home-content-container'>
+					<div id='file-list-canvas'>
+						<FilesListView />
+					</div>
+					<div id='token-list-canvas'>
+						<TokensPane />
+					</div>
 				</div>
-				<TokensPane />
 			</div>
 		);
 	}

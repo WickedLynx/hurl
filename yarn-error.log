@@ -1,0 +1,36 @@
+Arguments: 
+  /Users/hasse/.nvm/versions/node/v10.9.0/bin/node /Users/hasse/.nvm/versions/node/v10.9.0/bin/yarn add normalise.css
+
+PATH: 
+  /Users/hasse/.nvm/versions/node/v10.9.0/bin:/usr/local/texlive/2018/bin/x86_64-darwin/:/Users/hasse/.cargo/bin:/Applications/Postgres.app/Contents/Versions/latest/bin:/Applications/scripts:/usr/local/texlive/2016/bin/x86_64-darwin:/Applications/Mongodb/bin:/usr/bin:/usr/sbin:/bin:/sbin:/usr/local/bin:/usr/local/sbin:/Users/hasse/.rvm/bin:/usr/local/opt/fzf/bin
+
+Yarn version: 
+  1.12.3
+
+Node version: 
+  10.9.0
+
+Platform: 
+  darwin x64
+
+Trace: 
+  Error: https://registry.yarnpkg.com/normalise.css: Not found
+      at Request.params.callback [as _callback] (/Users/hasse/.nvm/versions/node/v10.9.0/lib/node_modules/yarn/lib/cli.js:65894:18)
+      at Request.self.callback (/Users/hasse/.nvm/versions/node/v10.9.0/lib/node_modules/yarn/lib/cli.js:129018:22)
+      at Request.emit (events.js:182:13)
+      at Request.<anonymous> (/Users/hasse/.nvm/versions/node/v10.9.0/lib/node_modules/yarn/lib/cli.js:129990:10)
+      at Request.emit (events.js:182:13)
+      at IncomingMessage.<anonymous> (/Users/hasse/.nvm/versions/node/v10.9.0/lib/node_modules/yarn/lib/cli.js:129912:12)
+      at Object.onceWrapper (events.js:273:13)
+      at IncomingMessage.emit (events.js:187:15)
+      at endReadableNT (_stream_readable.js:1085:12)
+      at process._tickCallback (internal/process/next_tick.js:63:19)
+
+npm manifest: 
+  No manifest
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

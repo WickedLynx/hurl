@@ -2,7 +2,7 @@
 	height: 64px;
 	box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.32);
 	line-height: 64px;
-	position: absolute;
+	position: fixed;
 	top: 0;
 	left:0;
 	right: 0;
@@ -35,13 +35,27 @@
 }
 
 #file-list-canvas {
-	margin: 0;
-	padding: 0;
-	overflow: auto;
-	position: absolute;
-	top: 64px;
-	left: 0;
-	bottom: 0;
+	overflow: scroll;
 	width: 38%;
+	padding: 16px;
+	padding-top: 80px;
+	padding-bottom: 0;
 }
 
+#token-list-canvas {
+	width: 62%;
+	padding: 16px;
+	padding-top: 80px;
+}
+
+#home-content-container {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: grow;
+	height: 100%;
+}
+
+#home-container {
+	height: 100vh;
+}
