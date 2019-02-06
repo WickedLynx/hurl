@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import TokenCell from '../components/token_cell';
+import CreateTokenPanel from './create_token_panel';
 import '../css/tokens_pane.css';
 
 class TokensPane extends Component {
@@ -17,6 +18,7 @@ class TokensPane extends Component {
 
 		return (
 			<div id='tokens-pane-container'>
+				<CreateTokenPanel />
 				<div id='tokens-pane'>
 					<ul>
 						{cells}

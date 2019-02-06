@@ -4,6 +4,9 @@ var mysql = require('mysql');
 var shortid = require('shortid');
 
 const TOKEN_TYPE_PERMANENT = 'permanent';
+const TOKEN_TYPE_ONCE = 'once';
+const TOKEN_TYPE_TIMED = 'temporary';
+const TOKEN_TYPE_PASSWORD = 'password';
 
 var dbHelper = {
 	connection: null,

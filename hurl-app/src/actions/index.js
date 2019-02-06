@@ -21,6 +21,11 @@ export const SELECT_FILE = 'SELECT_FILE';
 
 export const API_URL = 'http://localhost:3064';
 
+export const TOKEN_TYPE_PERMANENT = 'permanent';
+export const TOKEN_TYPE_ONCE = 'once';
+export const TOKEN_TYPE_TIMED = 'timed';
+export const TOKEN_TYPE_PASSWORD = 'password';
+
 function parseError(error) {
 	var errorToReturn = { message: "Unknown error :(", code: 500 };
 	if (error && error.response && error.response.data) {

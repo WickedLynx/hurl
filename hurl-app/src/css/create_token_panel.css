@@ -1,0 +1,51 @@
+#create-token-container {
+	padding: 16px;
+	margin-bottom: 32px;
+	height: 232px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+#token-type-selector {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+}
+
+#create-button {
+	margin: 0 auto;
+}
+
+#token-description {
+	width: 80%;
+	margin: 0 auto;
+}
+
+#token-info {
+	text-align: center;
+	width: 80%;
+	margin: 0 auto;
+}
+
+#token-description input {
+	width: 100%;
+	height: 32px;
+	padding: 0px 8px;
+}
+
+#create-button button {
+	border: none;
+	box-shadow: none;
+	cursor: pointer;
+}
+
+#create-button button {
+	border: none;
+	box-shadow: none;
+	cursor: pointer;
+}
+
+#token-type-selector div {
+	cursor: pointer;
+}
