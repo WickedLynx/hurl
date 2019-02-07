@@ -172,7 +172,7 @@ var dbHelper = {
 				reject(Error('Invalid file ID'));
 				return;
 			}
-			conn.query('SELECT * FROM `tokens` WHERE `file_id` = ?', [fileID], function(err, results) {
+			conn.query('SELECT id, type, value, date_created, notes FROM `tokens` WHERE `file_id` = ?', [fileID], function(err, results) {
 				if (err) {
 					reject(err);
 					return;
@@ -223,6 +223,24 @@ var dbHelper = {
 			me.createFile(user.id, path, size,  name).then(function(file) {
 				resolve(file);
 			}).catch(reject);
+		});
+	},
+
+	deleteToken: function(value) {
+		const conn = this.connection;
+		return new Promise(function(resolve, reject) {
+			if (!value) {
+				resolve();
+				return;
+			}
+
+			conn.query('DELETE FROM `tokens` WHERE `value` = ?', [value], function(err, results) {
+				if (err) {
+					reject(err);
+					return;
+				}
+				resolve();
+			});
 		});
 	},
 

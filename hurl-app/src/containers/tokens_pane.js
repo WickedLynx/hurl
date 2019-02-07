@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import TokenCell from '../components/token_cell';
 import CreateTokenPanel from './create_token_panel';
+import { deleteToken } from '../actions/index';
 import '../css/tokens_pane.css';
 
 class TokensPane extends Component {
@@ -14,7 +15,10 @@ class TokensPane extends Component {
 			var link = window.location.protocol + '//' + window.location.host + '/download?token=' + token.value;
 			return (
 				<li key={token.id}>
-				<TokenCell link={link} type={token.type} dateCreated={token.date_created} dateExpires='--' />
+					<TokenCell link={link} notes={token.notes} type={token.type}
+						dateCreated={token.date_created} dateExpires='--'
+						deleteHandler={() => this.props.deleteToken(token.value)}
+					/>
 				</li>
 			);
 		});
@@ -43,4 +47,4 @@ function mapStateToProps(state) {
 	return { selectedFile: selectedFile }
 }
 
-export default connect(mapStateToProps)(TokensPane);
+export default connect(mapStateToProps, { deleteToken })(TokensPane);

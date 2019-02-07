@@ -167,3 +167,10 @@ export const getTokenDetails = (token) => dispatch => {
 		});
 	});
 }
+
+export const deleteToken = (value) => dispatch => {
+	axios.delete(`${API_URL}/tokens/${value}`, { headers: CredentialStore.authHeader() })
+	.then(r => {
+		dispatch(getFiles());
+	}).catch(e => console.log(e) );
+}
