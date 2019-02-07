@@ -16,7 +16,7 @@ export default function FileListCell(props) {
 			<p className='font-normal fg-text-dark'>{date.toDateString()}</p>
 			<p className='font-medium fg-text-dark'>{bytes(props.file.size || 0)}</p>
 			<div className='trash-container'>
-			<img src={TrashIcon} alt=''/>
+			<img src={TrashIcon} alt='' onClick={props.deleteHandler}/>
 			</div>
 		</div>
 	);

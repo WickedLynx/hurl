@@ -244,6 +244,33 @@ var dbHelper = {
 		});
 	},
 
+	deleteFile: function(fileID) {
+		const conn = this.connection;
+		const deleteTokens = this.deleteAllTokensForFile.bind(this);
+		return new Promise(function(resolve, reject) {
+			conn.query('DELETE FROM `files` where `id` = ?', [fileID], function(err, result) {
+				if (err) {
+					reject(err);
+					return;
+				}
+				deleteTokens(fileID).then(resolve).catch(reject);
+			});
+		});
+	},
+
+	deleteAllTokensForFile: function(fileID) {
+		const conn = this.connection;
+		return new Promise(function(resolve, reject) {
+			conn.query('DELETE FROM `tokens` where `file_id` = ?', [fileID], function(err, result) {
+				if (err) {
+					reject(err);
+					return;
+				}
+				resolve();
+			});
+		});
+	},
+
 	createToken: function(type, fileID, notes=null, password=null, duration=null) {
 		const me = this;
 		return new Promise(function(resolve, reject) {

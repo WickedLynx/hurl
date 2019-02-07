@@ -143,8 +143,26 @@ app.post('/files/:fileID/links', passport.authenticate('jwt', { session: false }
 });
 
 app.delete('/tokens/:tokenValue', passport.authenticate('jwt', { session: false }), function(req, res) {
+	if (!req.user) {
+		postError(res, 401, 'Login please');
+		return;
+	}
 	const value = req.params.tokenValue;
 	dbHelper.deleteToken(value)
+	.then(function() {
+		postSuccess(res, {});
+	}).catch(function(error) {
+		postError(res, 500, error);
+	});
+});
+
+app.delete('/files/:fileID', passport.authenticate('jwt', { session: false }), function(req, res) {
+	if (!req.user) {
+		postError(res, 401, 'Login please');
+		return;
+	}
+	const fileID = req.params.fileID;
+	dbHelper.deleteFile(fileID)
 	.then(function() {
 		postSuccess(res, {});
 	}).catch(function(error) {

@@ -174,3 +174,10 @@ export const deleteToken = (value) => dispatch => {
 		dispatch(getFiles());
 	}).catch(e => console.log(e) );
 }
+
+export const deleteFile = (fileID) => dispatch => {
+	axios.delete(`${API_URL}/files/${fileID}`, { headers: CredentialStore.authHeader() })
+	.then(r => {
+		dispatch(getFiles());
+	}).catch(e => console.log(e));
+}
