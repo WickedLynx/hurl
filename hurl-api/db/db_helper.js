@@ -2,11 +2,7 @@ var bcrypt = require('bcrypt');
 var config = require('../config.js');
 var mysql = require('mysql');
 var shortid = require('shortid');
-
-const TOKEN_TYPE_PERMANENT = 'permanent';
-const TOKEN_TYPE_ONCE = 'once';
-const TOKEN_TYPE_TIMED = 'timed';
-const TOKEN_TYPE_PASSWORD = 'password';
+const constants = require('./constants.js');
 
 var dbHelper = {
 	connection: null,
@@ -161,7 +157,7 @@ var dbHelper = {
 					return;
 				}
 				var downloadInfo = results[0];
-				if (downloadInfo.type === TOKEN_TYPE_PERMANENT) {
+				if (downloadInfo.type === constants.tokenTypes.permanent) {
 					resolve(downloadInfo);
 					return;
 				}
@@ -230,18 +226,43 @@ var dbHelper = {
 		});
 	},
 
-	createToken: function(type, value=shortid.generate(), fileID, dateExpires=null) {
-		return this.insertToken(type, value, fileID, dateExpires).then(this.tokenWithID.bind(this));
-	},
-
-	insertToken: function(type, value, fileID, dateExpires=null) {
-		const conn = this.connection;
+	createToken: function(type, fileID, notes=null, password=null, duration=null) {
+		const me = this;
 		return new Promise(function(resolve, reject) {
-			if (!type || !value || !fileID) {
+			if (!type || !fileID) {
 				reject(Error('Missing compulsary fields'));
 				return;
 			}
-			conn.query('INSERT INTO `tokens` (type, value, date_expires, file_id) VALUES (?, ?, ?, ?)', [type, value, dateExpires, fileID], function(err, results, fields) {
+			switch (type) {
+				case constants.tokenTypes.password: {
+					if (!password) {
+						reject(Error('Missing password'));
+						return;
+					}
+				}
+
+				case constants.tokenTypes.duration: {
+					if (!password) {
+						reject(Error('Missing duration'));
+						return;
+					}
+				}
+
+				default: break;
+			}
+			me.insertToken(type, fileID, notes, password, duration).then(resolve).catch(reject);
+		});
+	},
+
+	insertToken: function(type, fileID, notes=null, password=null, dateExpires=null) {
+		const conn = this.connection;
+		const value = shortid.generate();
+		return new Promise(function(resolve, reject) {
+			if (!type || !fileID) {
+				reject(Error('Missing compulsary fields'));
+				return;
+			}
+			conn.query('INSERT INTO `tokens` (type, file_id, value, notes, password,  date_expires) VALUES (?, ?, ?, ?, ?, ?)', [type, fileID, value, notes, password,  dateExpires], function(err, results, fields) {
 				if (err) {
 					reject(err);
 					return;

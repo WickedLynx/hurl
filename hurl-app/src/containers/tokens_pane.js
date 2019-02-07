@@ -6,6 +6,9 @@ import '../css/tokens_pane.css';
 
 class TokensPane extends Component {
 	render() {
+		if (!this.props.selectedFile) {
+			return <div />
+		}
 		var tokens = this.props.selectedFile.tokens || [];
 		var cells = tokens.map (token => {
 			var link = window.location.protocol + '//' + window.location.host + '/download?token=' + token.value;
@@ -33,7 +36,7 @@ function mapStateToProps(state) {
 	var files = state.files.files || [];
 	var selectedFileID = state.files.selectedFileID || "";
 	var selectedFiles = files.filter( file => { return file.id === selectedFileID } );
-	var selectedFile = {};
+	var selectedFile = null;
 	if (selectedFiles.length > 0) {
 		selectedFile = selectedFiles[0];
 	}

@@ -128,6 +128,7 @@ export const createToken = (fileID, type, notes, password, duration) => dispatch
 		duration: duration
 	}, { headers: CredentialStore.authHeader() })
 	.then(response => {
+		dispatch(getFiles());
 		dispatch({
 			type: CREATE_TOKEN_SUCCESS,
 			data: response.data.data

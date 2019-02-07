@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import '../css/create_token_panel.css';
-import { TOKEN_TYPE_ONCE, TOKEN_TYPE_TIMED, TOKEN_TYPE_PASSWORD, TOKEN_TYPE_PERMANENT } from '../actions/index';
+import { TOKEN_TYPE_ONCE, TOKEN_TYPE_TIMED, TOKEN_TYPE_PASSWORD, TOKEN_TYPE_PERMANENT, createToken } from '../actions/index';
 
 class CreateTokenPanel extends Component {
 	constructor(props) {
 		super(props);
 		this.state = { description: '', selectedType: TOKEN_TYPE_PERMANENT }
+		this.createToken = this.createToken.bind(this);
 	}
 
 	tokenInfoForType(tokenType) {
@@ -22,6 +24,11 @@ class CreateTokenPanel extends Component {
 				return '';
 		}
 	}
+
+	createToken() {
+		this.props.createToken(this.props.fileID, this.state.selectedType, this.state.description, this.state.password, this.state.duration);
+	}
+
 	render() {
 		return (
 			<div id='create-token-container' className={`rounded bg-bg-dark border-text-light`}>
@@ -61,17 +68,28 @@ class CreateTokenPanel extends Component {
 
 					{/* Description */}
 					<div id='token-description'>
-						<input type='text' placeholder='Link description' className={`bg-bg-light fg-text-dark font-normal rounded border-acc-dark`}></input>
+						<input type='text' placeholder='Link description' 
+							className={`bg-bg-light fg-text-dark font-normal rounded border-acc-dark`}
+							onChange={(e) => this.setState({...this.state, ...{ description: e.target.value }})}
+							value={this.state.description}
+						></input>
 					</div>
 				</div>
 
 				{/* Create Button */}
 				<div id='create-button'>
-					<button className={`fg-acc-dark font-bold bg-bg-dark`}>CREATE LINK</button>
+					<button className={`fg-acc-dark font-bold bg-bg-dark`}
+						onClick={this.createToken}>
+						CREATE LINK
+					</button>
 				</div>
 			</div>
 		);
 	}
 }
 
-export default CreateTokenPanel;
+const mapStateToProps = (state) => (
+	{ isLoading: state.createToken.isLoading, success: state.createToken.success, error: state.createToken.error, fileID: state.files.selectedFileID }
+)
+
+export default connect(mapStateToProps, { createToken })(CreateTokenPanel);

@@ -43,6 +43,7 @@
 }
 
 #token-list-canvas {
+	overflow: scroll;
 	width: 62%;
 	padding: 16px;
 	padding-top: 80px;

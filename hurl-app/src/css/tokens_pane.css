@@ -1,6 +1,7 @@
 .token-cell-container {
 	padding: 16px;
 	height: 87px;
+	margin-bottom: 16px;
 }
 .token-cell-container a {
 	font-size: 14px;

@@ -10,6 +10,7 @@ var config = require('./config.js');
 var dbHelper = require('./db/db_helper.js');
 var formidable = require('formidable');
 var shortid = require('shortid');
+const constants = require('./db/constants.js');
 
 dbHelper.setup();
 var app = express();
@@ -128,22 +129,17 @@ app.post('/files/:fileID/links', passport.authenticate('jwt', { session: false }
 	}
 	const fileID = req.params.fileID;
 	const type = req.body.type;
-	switch (type) {
-		case (TOKEN_TYPE_PERMANENT): {
-			dbHelper.createToken(type, null, fileID, null)
-			.then(function(result) {
-				postSuccess(res, { result: 'Token added' });
-			})
-			.catch(function(err) {
-				postError(res, 500, 'Internal server error');
-			});
-			break;
-		}
-
-		default: {
-			postError(res, 401, 'Internal server error');
-		}
-	}
+	const notes = req.body.notes || null;
+	const password = req.body.password || null;
+	const duration = req.body.duration || null;
+	dbHelper.createToken(type, fileID, notes, password, duration)
+	.then(function(result) {
+		postSuccess(res, { result: 'Token added' });
+	})
+	.catch(function(err) {
+		console.log(err);
+		postError(res, 500, 'Internal server error');
+	});
 });
 
 
