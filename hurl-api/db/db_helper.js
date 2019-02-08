@@ -2,12 +2,12 @@ var bcrypt = require('bcrypt');
 var config = require('../config.js');
 var mysql = require('mysql');
 var shortid = require('shortid');
+var fs = require('fs');
 const constants = require('./constants.js');
 
 var dbHelper = {
 	connection: null,
-	
-	
+
 	hashPassword: function(password) {
 		return new Promise(function (resolve, reject) {
 			bcrypt.genSalt(config.saltWorkFactor, function(err, salt) {
@@ -142,6 +142,7 @@ var dbHelper = {
 
 	fileForToken: function(token) {
 		const conn = this.connection;
+		const deleteToken = this.deleteToken.bind(this);
 		return new Promise(function(resolve, reject) {
 			if (!token) {
 				reject(Error('Invalid token ID'));
@@ -157,11 +158,55 @@ var dbHelper = {
 					return;
 				}
 				var downloadInfo = results[0];
-				if (downloadInfo.type === constants.tokenTypes.permanent) {
-					resolve(downloadInfo);
-					return;
+				switch (downloadInfo.type) {
+					case constants.tokenTypes.permanent: {
+						resolve(downloadInfo);
+						break;
+					}
+
+					case constants.tokenTypes.once: {
+						deleteToken(token)
+						.then(function() { })
+						.catch(function(e) {});
+						resolve(downloadInfo);
+						break;
+					}
+
+					default: {
+						reject(Error('Invalid token'));
+						break;
+					}
 				}
 			});
+		});
+	},
+
+	fileInfoWithID: function(fileID) {
+		const conn = this.connection;
+		return new Promise(function(resolve, reject) {
+			console.log(fileID);
+			if (!fileID) {
+				reject(Error('Invalid file ID'));
+				return;
+			}
+			conn.query('SELECT * from `files` where `id` = ?', [fileID], function(err, results) {
+				console.log(err, results);
+				if (err) {
+					reject(err);
+					return;
+				}
+				if (results.length === 0) {
+					reject(Error('File not found'));
+					return;
+				}
+				resolve(results[0]);
+			});
+		});
+	},
+
+	deleteFileAtPath: function(filePath) {
+		fs.unlink(filePath, function() {
+			console.log('Deleted file at ', filePath);
 		});
 	},
 
@@ -247,14 +292,25 @@ var dbHelper = {
 	deleteFile: function(fileID) {
 		const conn = this.connection;
 		const deleteTokens = this.deleteAllTokensForFile.bind(this);
+		const fileInfoWithID = this.fileInfoWithID.bind(this);
+		const deleteFileAtPath = this.deleteFileAtPath.bind(this);
 		return new Promise(function(resolve, reject) {
-			conn.query('DELETE FROM `files` where `id` = ?', [fileID], function(err, result) {
-				if (err) {
-					reject(err);
-					return;
-				}
-				deleteTokens(fileID).then(resolve).catch(reject);
-			});
+			if (!fileID) {
+				reject(Error('Invalid file ID'));
+				return;
+			}
+			fileInfoWithID(fileID) 
+			.then(function(fileDetails) {
+				deleteFileAtPath(fileDetails.path);
+				conn.query('DELETE FROM `files` where `id` = ?', [fileID], function(err, result) {
+					if (err) {
+						reject(err);
+						return;
+					}
+					deleteTokens(fileID).then(resolve).catch(reject);
+				});
+			})
+			.catch(reject);
 		});
 	},
 
@@ -284,6 +340,8 @@ var dbHelper = {
 						reject(Error('Missing password'));
 						return;
 					}
+					me.insertToken(type, fileID, notes, password, null).then(resolve).catch(reject);
+					break;
 				}
 
 				case constants.tokenTypes.duration: {
@@ -291,11 +349,21 @@ var dbHelper = {
 						reject(Error('Missing duration'));
 						return;
 					}
+					me.insertToken(type, fileID, notes, null, duration).then(resolve).catch(reject);
+					break;
 				}
 
-				default: break;
+				case constants.tokenTypes.permanent:
+				case constants.tokenTypes.once: {
+					me.insertToken(type, fileID, notes, null, null).then(resolve).catch(reject);
+					break;
+				}
+
+				default: {
+					reject(Error('Invalid token type'));
+					break;
+				}
 			}
-			me.insertToken(type, fileID, notes, password, duration).then(resolve).catch(reject);
 		});
 	},
 

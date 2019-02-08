@@ -16,6 +16,7 @@ dbHelper.setup();
 var app = express();
 app.use(cors());
 app.use(bodyParser.json());
+app.set('view engine', 'ejs');
 
 //-----------------------------------------------------------------------------------------------------------------
 // Auth
@@ -61,8 +62,7 @@ app.get('/files/:token', function(req, res) {
 	dbHelper.fileForToken(req.params.token).then(function(fileInfo) {
 		res.download(fileInfo.path);
 	}).catch(function(error) {
-		console.log(error);
-		postError(res, 500, error);
+		res.render('expired_page');
 	});
 });
 

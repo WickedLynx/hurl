@@ -29,7 +29,7 @@ class Download extends Component {
 
 	errorView(error) {
 		return (
-			<p className='fg-acc-dark font-medium'>error</p>
+			<p className='fg-acc-dark font-medium'>{error.message}</p>
 		);
 	}
 
