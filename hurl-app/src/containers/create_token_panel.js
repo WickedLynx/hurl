@@ -6,7 +6,13 @@ import { TOKEN_TYPE_ONCE, TOKEN_TYPE_TIMED, TOKEN_TYPE_PASSWORD, TOKEN_TYPE_PERM
 class CreateTokenPanel extends Component {
 	constructor(props) {
 		super(props);
-		this.state = { description: '', selectedType: TOKEN_TYPE_PERMANENT, password: ''}
+		this.state = {
+			description: '',
+			selectedType: TOKEN_TYPE_PERMANENT,
+			password: '',
+			selectedTimeUnit: 'min',
+			duration: '30'
+		}
 		this.createToken = this.createToken.bind(this);
 	}
 
@@ -26,19 +32,44 @@ class CreateTokenPanel extends Component {
 	}
 
 	createToken() {
-		this.props.createToken(this.props.fileID, this.state.selectedType, this.state.description, this.state.password, this.state.duration);
+		if (this.state.selectedType === TOKEN_TYPE_PASSWORD) {
+			if (this.state.password.length === 0) { return }
+		}
+		let duration = Number(this.state.duration) || 30
+		switch (this.state.selectedTimeUnit) {
+			case 'min':
+				duration = duration * 60
+				break
+			case 'hour':
+				duration = duration * 60 * 60
+				break
+			case 'day':
+				duration = duration * 60 * 60 * 24
+				break
+			default:
+				break
+		}
+		this.props.createToken(this.props.fileID, this.state.selectedType, this.state.description, this.state.password, duration);
 	}
 
 	render() {
+		const timeUnitSelectedClass = 'bg-acc-light fg-bg-light rounded border-acc-light duration-segment'
+		const timeUnitClass = 'bg-bg-light fg-acc-light rounded border-acc-light duration-segment'
 		const timerField = (this.state.selectedType === TOKEN_TYPE_TIMED) ?
 		(
 			<div id='create-meta-duration-container'>
 				<input type='text' className={'bg-bg-light fg-acc-light rounded border-text-light'} value={this.state.duration}
 					onChange={(e) => this.setState({...this.state, ...{ duration: e.target.value }}) }
 				></input>
-				<div className={'bg-bg-light fg-acc-light rounded border-acc-light duration-segment'}>min</div>
-				<div className={'bg-bg-light fg-acc-light rounded border-acc-light duration-segment'}>hour</div>
-				<div className={'bg-bg-light fg-acc-light rounded border-acc-light duration-segment'}>day</div>
+				<div className={this.state.selectedTimeUnit === 'min' ? timeUnitSelectedClass : timeUnitClass}
+					onClick={e => this.setState({...this.state, ...{ selectedTimeUnit: 'min' }})}
+				>min</div>
+				<div className={this.state.selectedTimeUnit === 'hour' ? timeUnitSelectedClass : timeUnitClass}
+					onClick={e => this.setState({...this.state, ...{ selectedTimeUnit: 'hour' }})}
+				>hour</div>
+				<div className={this.state.selectedTimeUnit === 'day' ? timeUnitSelectedClass : timeUnitClass}
+					onClick={e => this.setState({...this.state, ...{ selectedTimeUnit: 'day' }})}
+				>day</div>
 			</div>
 		) : (<div />)
 		const passwordField = (this.state.selectedType === TOKEN_TYPE_PASSWORD) ?
