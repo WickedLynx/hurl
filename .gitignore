@@ -12,6 +12,7 @@ hurl-api/*.log
 hurl-api/npm-debug.log*
 hurl-api/yarn-debug.log*
 hurl-api/config.js
+hurl-app/.env
 api/yarn-error.log*
 
 hurl-app/logs
