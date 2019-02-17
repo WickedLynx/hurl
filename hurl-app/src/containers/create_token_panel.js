@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import '../css/create_token_panel.css';
-import { TOKEN_TYPE_ONCE, TOKEN_TYPE_TIMED, TOKEN_TYPE_PASSWORD, TOKEN_TYPE_PERMANENT, createToken } from '../actions/index';
+import { tokenType, createToken } from '../actions/index';
 
 class CreateTokenPanel extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			description: '',
-			selectedType: TOKEN_TYPE_PERMANENT,
+			selectedType: tokenType.permanent,
 			password: '',
 			selectedTimeUnit: 'min',
 			duration: '30'
@@ -16,15 +16,15 @@ class CreateTokenPanel extends Component {
 		this.createToken = this.createToken.bind(this);
 	}
 
-	tokenInfoForType(tokenType) {
-		switch (tokenType) {
-			case TOKEN_TYPE_PERMANENT:
+	tokenInfoForType(type) {
+		switch (type) {
+			case tokenType.permanent:
 				return 'Link does not expire automatically and does not require a password';
-			case TOKEN_TYPE_ONCE:
+			case tokenType.once:
 				return 'Link expires immediately after the file is downloaded';
-			case TOKEN_TYPE_TIMED:
+			case tokenType.timed:
 				return 'Link expires automatically after a set duration';
-			case TOKEN_TYPE_PASSWORD:
+			case tokenType.password:
 				return 'Link does not expire automatically. A password is required to download the file';
 			default: 
 				return '';
@@ -32,7 +32,7 @@ class CreateTokenPanel extends Component {
 	}
 
 	createToken() {
-		if (this.state.selectedType === TOKEN_TYPE_PASSWORD) {
+		if (this.state.selectedType === tokenType.password) {
 			if (this.state.password.length === 0) { return }
 		}
 		let duration = Number(this.state.duration) || 30
@@ -55,7 +55,7 @@ class CreateTokenPanel extends Component {
 	render() {
 		const timeUnitSelectedClass = 'bg-acc-light fg-bg-light rounded border-acc-light duration-segment'
 		const timeUnitClass = 'bg-bg-light fg-acc-light rounded border-acc-light duration-segment'
-		const timerField = (this.state.selectedType === TOKEN_TYPE_TIMED) ?
+		const timerField = (this.state.selectedType === tokenType.timed) ?
 		(
 			<div id='create-meta-duration-container'>
 				<input type='text' className={'bg-bg-light fg-acc-light rounded border-text-light'} value={this.state.duration}
@@ -72,7 +72,7 @@ class CreateTokenPanel extends Component {
 				>day</div>
 			</div>
 		) : (<div />)
-		const passwordField = (this.state.selectedType === TOKEN_TYPE_PASSWORD) ?
+		const passwordField = (this.state.selectedType === tokenType.password) ?
 		(
 			<div id='token-password'>
 				<input type='text' placeholder='Password' 
@@ -86,23 +86,23 @@ class CreateTokenPanel extends Component {
 			<div id='create-token-container' className={`rounded bg-bg-dark border-text-light`}>
 				{/* Selector */}
 				<div id='token-type-selector' className={`font-medium fg-text-dark`}>
-					<div className={this.state.selectedType === TOKEN_TYPE_PERMANENT ? 'fg-acc-dark' : ''}
-						onClick={() => this.setState({...this.state, ...{ selectedType: TOKEN_TYPE_PERMANENT }})}
+					<div className={this.state.selectedType === tokenType.permanent ? 'fg-acc-dark' : ''}
+						onClick={() => this.setState({...this.state, ...{ selectedType: tokenType.permanent }})}
 					>
 						PERMANENT
 					</div>
-					<div className={this.state.selectedType === TOKEN_TYPE_ONCE ? 'fg-acc-dark' : ''}
-						onClick={() => this.setState({...this.state, ...{ selectedType: TOKEN_TYPE_ONCE }})}
+					<div className={this.state.selectedType === tokenType.once ? 'fg-acc-dark' : ''}
+						onClick={() => this.setState({...this.state, ...{ selectedType: tokenType.once }})}
 					>
 						ONE-TIME
 					</div>
-					<div className={this.state.selectedType === TOKEN_TYPE_TIMED ? 'fg-acc-dark' : ''}
-						onClick={() => this.setState({...this.state, ...{ selectedType: TOKEN_TYPE_TIMED }})}
+					<div className={this.state.selectedType === tokenType.timed ? 'fg-acc-dark' : ''}
+						onClick={() => this.setState({...this.state, ...{ selectedType: tokenType.timed }})}
 					>
 						TIMED
 					</div>
-					<div className={this.state.selectedType === TOKEN_TYPE_PASSWORD ? 'fg-acc-dark' : ''}
-						onClick={() => this.setState({...this.state, ...{ selectedType: TOKEN_TYPE_PASSWORD }})}
+					<div className={this.state.selectedType === tokenType.password ? 'fg-acc-dark' : ''}
+						onClick={() => this.setState({...this.state, ...{ selectedType: tokenType.password }})}
 					>
 						PASSWORD
 					</div>
