@@ -59,7 +59,8 @@ app.get('/files', passport.authenticate('jwt', { session: false }), function(req
 });
 
 app.get('/files/:token', function(req, res) {
-	dbHelper.fileForToken(req.params.token).then(function(fileInfo) {
+	const password = req.query['password'] || null;
+	dbHelper.fileForToken(req.params.token, password).then(function(fileInfo) {
 		res.download(fileInfo.path);
 	}).catch(function(error) {
 		res.render('expired_page');

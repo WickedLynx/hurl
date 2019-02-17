@@ -140,15 +140,16 @@ var dbHelper = {
 		});
 	},
 
-	fileForToken: function(token) {
+	fileForToken: function(token, password) {
 		const conn = this.connection;
 		const deleteToken = this.deleteToken.bind(this);
+		const hashPassword = this.hashPassword.bind(this);
 		return new Promise(function(resolve, reject) {
 			if (!token) {
 				reject(Error('Invalid token ID'));
 				return;
 			}
-			conn.query('SELECT tokens.type, tokens.value, tokens.date_expires, files.path FROM `tokens` INNER JOIN `files` ON tokens.file_id = files.id WHERE `value` = ?', [token], function(err, results) {
+			conn.query('SELECT tokens.type, tokens.value, tokens.password, tokens.date_expires, files.path FROM `tokens` INNER JOIN `files` ON tokens.file_id = files.id WHERE `value` = ?', [token], function(err, results) {
 				if (err) {
 					reject(err);
 					return;
@@ -169,6 +170,36 @@ var dbHelper = {
 						.then(function() { })
 						.catch(function(e) {});
 						resolve(downloadInfo);
+						break;
+					}
+
+					case constants.tokenTypes.timed: {
+					const now = new Date();
+					if (now > downloadInfo.date_expires) {
+						deleteToken(token)
+						reject(Error('Link expired'));
+						return;
+					}
+					resolve(downloadInfo);
+					break;
+					}
+
+					case constants.tokenTypes.password: {
+						if (!password) {
+							reject(Error('Invalid password'));
+							return;
+						}
+						bcrypt.compare(password, downloadInfo.password, function(err, isMatch) {
+							if (err) {
+								reject(Error('Incorrect password'));
+								return;
+							}
+							if (!isMatch) {
+								reject(Error('Passwords do not match'));
+								return;
+							}
+							resolve(downloadInfo);
+						});
 						break;
 					}
 
@@ -340,16 +371,25 @@ var dbHelper = {
 						reject(Error('Missing password'));
 						return;
 					}
-					me.insertToken(type, fileID, notes, password, null).then(resolve).catch(reject);
+					me
+					.hashPassword(password)
+					.then(function(hash) {
+						me.insertToken(type, fileID, notes, hash, null).then(resolve).catch(reject);
+					})
+					.catch(function(error) {
+						reject(error);
+					})
 					break;
 				}
 
-				case constants.tokenTypes.duration: {
-					if (!password) {
+				case constants.tokenTypes.timed: {
+					if (!duration) {
 						reject(Error('Missing duration'));
 						return;
 					}
-					me.insertToken(type, fileID, notes, null, duration).then(resolve).catch(reject);
+					const now = new Date();
+					const expiryDate = new Date(now.getTime() + duration * 1000);
+					me.insertToken(type, fileID, notes, null, expiryDate).then(resolve).catch(reject);
 					break;
 				}
 
