@@ -2,12 +2,41 @@
 	text-align: center;
 }
 
+#download-password {
+	width: 48%;
+	display: flex;
+	flex-direction: column;
+	max-width: 320px;
+	margin: 0 auto;
+}
+
+#dl-description {
+	margin: 0 auto;
+	margin-bottom: 48px;
+	max-width: 560px;
+	font-size: 20px;
+}
+
+#download-password input {
+	text-align: center;
+	height: 32px;
+}
+
+#download-button {
+	margin-top: 16px;
+	text-decoration: none;
+	height: 40px;
+	line-height: 40px;
+}
+
 #download-container .brand-large {
 	margin-top: 132px;
-	margin-bottom: 64px;
+	margin-bottom: 32px;
 }
+
 
 #download-container #text-content {
 	font-size: 22px;
 }
+
 
