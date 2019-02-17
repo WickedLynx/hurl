@@ -6,7 +6,7 @@ import { TOKEN_TYPE_ONCE, TOKEN_TYPE_TIMED, TOKEN_TYPE_PASSWORD, TOKEN_TYPE_PERM
 class CreateTokenPanel extends Component {
 	constructor(props) {
 		super(props);
-		this.state = { description: '', selectedType: TOKEN_TYPE_PERMANENT }
+		this.state = { description: '', selectedType: TOKEN_TYPE_PERMANENT, password: ''}
 		this.createToken = this.createToken.bind(this);
 	}
 
@@ -30,6 +30,27 @@ class CreateTokenPanel extends Component {
 	}
 
 	render() {
+		const timerField = (this.state.selectedType === TOKEN_TYPE_TIMED) ?
+		(
+			<div id='create-meta-duration-container'>
+				<input type='text' className={'bg-bg-light fg-acc-light rounded border-text-light'} value={this.state.duration}
+					onChange={(e) => this.setState({...this.state, ...{ duration: e.target.value }}) }
+				></input>
+				<div className={'bg-bg-light fg-acc-light rounded border-acc-light duration-segment'}>min</div>
+				<div className={'bg-bg-light fg-acc-light rounded border-acc-light duration-segment'}>hour</div>
+				<div className={'bg-bg-light fg-acc-light rounded border-acc-light duration-segment'}>day</div>
+			</div>
+		) : (<div />)
+		const passwordField = (this.state.selectedType === TOKEN_TYPE_PASSWORD) ?
+		(
+			<div id='token-password'>
+				<input type='text' placeholder='Password' 
+					className={`bg-bg-light fg-acc-dark font-normal rounded border-acc-dark`}
+					onChange={(e) => this.setState({...this.state, ...{ password: e.target.value }})}
+					value={this.state.password}
+				></input>
+			</div>
+		) : <div />
 		return (
 			<div id='create-token-container' className={`rounded bg-bg-dark border-text-light`}>
 				{/* Selector */}
@@ -63,8 +84,10 @@ class CreateTokenPanel extends Component {
 					</div>
 
 					{/* Timed token */}
-					<div id='time-selector-container'>
-					</div>
+					{timerField}
+
+					{/* Password Field */}
+					{passwordField}
 
 					{/* Description */}
 					<div id='token-description'>

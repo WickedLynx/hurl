@@ -1,3 +1,11 @@
+.duration-segment {
+	width: 72px;
+	height: 28px;
+	line-height: 28px;
+	border-radius: 14px;
+	text-align: center;
+}
+
 #create-token-container {
 	padding: 16px;
 	margin-bottom: 32px;
@@ -22,6 +30,11 @@
 	width: 100%;
 }
 
+#token-password {
+	margin-bottom: 16px;
+	width: 72%;
+}
+
 #create-token-meta {
 	width: 80%;
 	display: flex;
@@ -37,12 +50,37 @@
 	margin: 16px auto;
 }
 
+#create-meta-duration-container {
+	width: 80%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: flex-end;
+	margin-bottom: 16px;
+}
+
+#create-meta-duration-container input {
+	text-align: center;
+	max-width: 96px;
+	min-width: 40px;
+	height: 35px;
+	font-size: 24px;
+}
+
 #token-description input {
 	height: 32px;
 	outline: none;
 	padding-left: 8px;
 	width: 100%;
 	box-sizing: border-box;
+}
+
+#token-password input {
+	height: 32px;
+	outline: none;
+	width: 100%;
+	box-sizing: border-box;
+	text-align: center;
 }
 
 #create-button button {
