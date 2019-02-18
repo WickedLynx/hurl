@@ -1,0 +1,18 @@
+{
+	"dev": {
+		"host": "localhost",
+		"user": { "ENV" : "DB_USER_DEV" },
+		"password": { "ENV" : "DB_PASSWORD_DEV" },
+		"database": "hurl",
+		"driver": "mysql",
+		"multipleStatements": true
+	},
+	"prod": {
+		"host": "localhost",
+		"user": { "ENV" : "DB_USER_PROD" },
+		"password": { "ENV" : "DB_PASSWORD_PROD" },
+		"database": "hurl",
+		"driver": "mysql",
+		"multipleStatements": true
+	}
+}

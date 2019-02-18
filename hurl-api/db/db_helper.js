@@ -77,7 +77,6 @@ var dbHelper = {
 			console.log('connected successfully');
 			me.createUserIfNeeded(email, password)
 			.then(function() {
-				console.log('Created new user with email: ' + email);	
 			}).catch(function(error) {
 				console.log('Failed to create user: ' + error);
 			});
