@@ -8,9 +8,10 @@ import '../css/app.css';
 
 class App extends Component {
 	render() {
+		const baseName = process.env.REACT_APP_BASENAME || '/'
 		return(
 			<div id='root-container'>
-				<Router baseName={'/'}>
+				<Router baseName={baseName}>
 					<div>
 						<Switch>
 							<Route exact path='/' component={Home} />
