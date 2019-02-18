@@ -23,7 +23,7 @@ export const CREATE_TOKEN_ERROR = 'CREATE_TOKEN_ERROR';
 
 export const SELECT_FILE = 'SELECT_FILE';
 
-export const API_URL = 'http://localhost:3064';
+export const API_URL = process.env.REACT_APP_API_URL;
 
 export const tokenType = {
 	permanent: 'permanent',

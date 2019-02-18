@@ -194,6 +194,6 @@ function postError(res, code, err) {
 	});
 }
 
-app.listen(3064, '127.0.0.1', function() {
+app.listen(process.env.PORT, '127.0.0.1', function() {
 	console.log('Backend fired up!');
 });
