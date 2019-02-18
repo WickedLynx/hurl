@@ -44,6 +44,7 @@ var dbHelper = {
 					me.connection.query('INSERT INTO `users` (email, password) VALUES (?, ?)', [email, hash],
 						function(err, results, fields) {
 						if (err) {
+							console.log(err);
 							reject(err);
 							return;
 						}
@@ -56,7 +57,7 @@ var dbHelper = {
 	},
 
 	setup: function() {
-		const config = process.env.NODE_ENV === 'production' ? 
+		const dbConfig = process.env.NODE_ENV === 'production' ? 
 		{
 			host: 'localhost',
 			user: process.env.DB_USER_PROD,
@@ -69,9 +70,8 @@ var dbHelper = {
 			user: process.env.DB_USER_DEV,
 			password: process.env.DB_PASSWORD_DEV,
 			database: 'hurl'
-		}
-		this.connection = mysql.createConnection(config);
-
+		};
+		this.connection = mysql.createConnection(dbConfig);
 		const me = this;
 		var email = config.username;
 		var password = config.password;
@@ -82,11 +82,13 @@ var dbHelper = {
 				return;
 			}
 			if (!email || !password || email.length === 0 || password.length === 0) {
+				console.log('Invalid config');
 				return;
 			}
 			console.log('connected successfully');
 			me.createUserIfNeeded(email, password)
 			.then(function() {
+				console.log('All set up');
 			}).catch(function(error) {
 				console.log('Failed to create user: ' + error);
 			});
