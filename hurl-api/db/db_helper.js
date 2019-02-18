@@ -56,11 +56,21 @@ var dbHelper = {
 	},
 
 	setup: function() {
-		this.connection = mysql.createConnection({
+		const config = process.env.NODE_ENV === 'production' ? 
+		{
 			host: 'localhost',
-			user: 'root',
+			user: process.env.DB_USER_PROD,
+			password: process.env.DB_PASSWORD_PROD,
 			database: 'hurl'
-		});
+		}
+		:
+		{
+			host: 'localhost',
+			user: process.env.DB_USER_DEV,
+			password: process.env.DB_PASSWORD_DEV,
+			database: 'hurl'
+		}
+		this.connection = mysql.createConnection(config);
 
 		const me = this;
 		var email = config.username;
