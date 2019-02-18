@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { getTokenDetails } from '../actions/index';
 import '../css/download.css';
 import { API_URL, tokenType } from '../actions/index';
-import qs from 'query-string';
+import qs from 'qs';
 
 class Download extends Component {
 	constructor(props) {
@@ -11,7 +11,7 @@ class Download extends Component {
 		this.state = { password: '' }
 	}
 	componentDidMount() {
-		var query = this.props.location.search;
+		var query = this.props.location.search.slice(1);
 		var tokenID = "";
 		if (query) {
 			tokenID = qs.parse(query).token;
