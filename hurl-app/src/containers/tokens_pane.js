@@ -12,7 +12,7 @@ class TokensPane extends Component {
 		}
 		var tokens = this.props.selectedFile.tokens || [];
 		var cells = tokens.map (token => {
-			var link = window.location.protocol + '//' + window.location.host + '/download?token=' + token.value;
+			var link = `${window.location.protocol}//${window.location.host}${process.env.REACT_APP_BASENAME || ''}/download?token=${token.value}`;
 			return (
 				<li key={token.id}>
 					<TokenCell link={link} notes={token.notes} type={token.type}
